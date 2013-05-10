@@ -18,11 +18,12 @@ Libraries to the SF_HOME/webapps/livecluster/deploy/resources/gridlib directory 
 
 Testing the Deployment
 --------------------------------------
-* Start an Cassandra Component on Silver Fabric.  See the TIBCO Silver Fabric documentation for more information.
+* Start a Cassandra Component on Silver Fabric.  See the TIBCO Silver Fabric documentation for more information.
 * Note: If you are testing the installation on only one engine you will have to set the MIN_SEED_NODES to 1.
 * You will also have to specify a value for SEED_CONFIG_DIR that will be accessible from all nodes.
 * Connect to the Engine machine. Using a cmd (Windows) or a shell (Linux).
 * Change into the directory ENGINE_WORK_DIR/cassandra/bin and run
+
 ```bash
 ./nodetool -u monitorRole -pw changeit -p 9000 info
 ```
