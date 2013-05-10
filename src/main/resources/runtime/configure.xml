@@ -1,0 +1,48 @@
+<containerConfig>
+	<configFiles baseDir="${CASSANDRA_CONF}" include="cassandra.yaml">
+		<regex pattern="cluster_name:.*" replacement="cluster_name: ${CLUSTER_NAME}" />
+
+		<regex pattern="-\s+seeds:.*" replacement='- seeds: "${SEEDS}"' />
+
+		<regex pattern="partitioner:.*" replacement="partitioner: ${PARTITIONER}" />
+
+		<regex pattern="-\s+/var/lib/cassandra/data" replacement="${DATA_FILE_DIRECTORIES}" />
+
+		<regex pattern="commitlog_directory:.*" replacement="commitlog_directory: ${COMMIT_LOG_DIRECTORY}" />
+
+		<regex pattern="saved_caches_directory:.*"
+			replacement="saved_caches_directory: ${SAVED_CACHES_DIRECTORY}" />
+
+		<regex pattern="listen_address:.*" replacement="listen_address: ${LISTEN_ADDRESS}" />
+		<regex pattern="storage_port:.*" replacement="storage_port: ${STORAGE_PORT}" />
+		<regex pattern="ssl_storage_port:.*" replacement="ssl_storage_port: ${SSL_STORAGE_PORT}" />
+		<regex pattern="native_transport_port:.*" replacement="native_transport_port: ${NATIVE_TRANSPORT_PORT}" />
+		<regex pattern="rpc_port:.*" replacement="rpc_port: ${RPC_PORT}" />
+		<regex pattern="rpc_address:.*" replacement="rpc_address: ${LISTEN_ADDRESS}" />
+		
+		<regex pattern="start_native_transport:.*" replacement="start_native_transport: ${START_NATIVE_TRANSPORT}" />
+		<regex pattern="endpoint_snitch:.*" replacement="endpoint_snitch: ${ENDPOINT_SNITCH}" />
+
+	</configFiles>
+
+	<configFiles baseDir="${CASSANDRA_CONF}" include="log4j-server.properties">
+		<property key="log4j.appender.R.File" value="${CASSANDRA_LOG_DIRECTORY}/system.log" />
+	</configFiles>
+	
+	<configFiles baseDir="management" exclude="*.jks">
+		<velocity />
+	</configFiles>
+	
+	<configFiles baseDir="${CASSANDRA_CONF}" include="cassandra-env.sh">
+		<regex pattern='-Dcom\.sun\.management\.jmxremote\.port=\$JMX_PORT' replacement='-Dcom.sun.management.jmxremote.port=${RMI_REGISTRY_PORT}' />
+		<regex pattern='-Dcom\.sun\.management\.jmxremote\.ssl=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.ssl=${JMX_SSL_ENABLED}' />
+		<regex pattern='-Dcom\.sun\.management\.jmxremote\.authenticate=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.authenticate=true' />
+	</configFiles>
+	
+	<configFiles baseDir="bin" include="cassandra.bat">
+		<regex pattern='-Dcom\.sun\.management\.jmxremote\.port=[0-9]+' replacement='-Dcom.sun.management.jmxremote.port=${RMI_REGISTRY_PORT}' />
+		<regex pattern='-Dcom\.sun\.management\.jmxremote\.ssl=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.ssl=${JMX_SSL_ENABLED}' />
+		<regex pattern='-Dcom\.sun\.management\.jmxremote\.authenticate=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.authenticate=true' />
+	</configFiles>
+
+</containerConfig>

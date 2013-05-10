@@ -1,0 +1,35 @@
+<project name="unpack">
+
+    <target name="unpack">
+        <echo message="Unpacking ${source}"/>
+        
+        <basename property="filename" file="${source}"/>
+        <basename property="filename_zip" file="${source}" suffix=".zip"/>
+        <basename property="filename_targz" file="${source}" suffix=".tar.gz"/>
+
+        <condition property="zip">
+            <not>
+                <equals arg1="${filename}" arg2="${filename_zip}" />
+            </not>
+        </condition>
+        <condition property="targz">
+            <not>
+                <equals arg1="${filename}" arg2="${filename_targz}" />
+            </not>
+        </condition>
+        <antcall target="zip" />
+        <antcall target="targz" />
+    </target>
+
+    <target name="zip" if="zip" >
+        <unzip src="${source}" dest="${target}"/>
+    </target>
+    
+    <target name="targz" if="targz" >
+        <mkdir dir="${target}"/>
+        <gunzip src="${source}" dest="${target}"/>
+        
+        <basename property="tarfile" file="${source}" suffix=".gz"/>
+        <untar src="${target}/${tarfile}" dest="${target}"/>
+    </target>
+</project>

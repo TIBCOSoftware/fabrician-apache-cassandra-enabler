@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<container class="com.datasynapse.fabric.container.ExecContainer">
+    <property name="name" value="Apache Cassandra"/>
+    <property name="description" value="Apache Cassandra Enabler"/>
+    <property name="supportedDomainType" value="Default"/>
+    <property name="blocking" value="false"/>
+    <property name="distributionVersion" value="1.2.4.0"/>
+    <property name="version" value="1.2.4.0"/>
+    <property name="shutdownTimeout" value="120000" />
+    <property name="workDir" value="${CASSANDRA_HOME}" />
+    <property name="scriptDirectory" value="scripts"/>
+    
+                                      
+    <script class="com.datasynapse.fabric.common.script.Script">
+        <property name="languageVersion" value="2.5"/>
+        <property name="name" value="Cassandra.py"/>
+        <property name="language" value="python"/>
+    </script>
+    
+    <unixcommand class="com.datasynapse.fabric.container.LifecycleCommand">
+		<property name="shutdownCommand" value="" />
+		<property name="startupCommand" value="" />
+	</unixcommand>
+
+	<windowscommand class="com.datasynapse.fabric.container.LifecycleCommand">
+		<property name="shutdownCommand" value="" />
+		<property name="startupCommand" value="" />
+	</windowscommand>
+	
+	<statisticsprovider
+		class="com.datasynapse.fabric.stats.provider.ContainerScriptStatisticsProvider">
+		
+		<supportedstatistic
+			class="com.datasynapse.fabric.stats.BasicStatisticsMetadata">
+			<property name="name" value="Read Latency Mean" />
+			<property name="description" value="Read Latency Mean (ms)" />
+			<property name="shared" value="False" />
+			<property name="default" value="False" />
+			<property name="units" value="ms" />
+			<aggregator
+				class="com.datasynapse.fabric.stats.aggregator.AverageAggregator">
+				<property name="inputStatisticName" value="Read Latency Mean" />
+			</aggregator>
+		</supportedstatistic>
+		
+		<supportedstatistic
+			class="com.datasynapse.fabric.stats.BasicStatisticsMetadata">
+			<property name="name" value="Write Latency Mean" />
+			<property name="description" value="Write Latency Mean (ms)" />
+			<property name="shared" value="False" />
+			<property name="default" value="False" />
+			<property name="units" value="ms" />
+			<aggregator
+				class="com.datasynapse.fabric.stats.aggregator.AverageAggregator">
+				<property name="inputStatisticName" value="Write Latency Mean" />
+			</aggregator>
+		</supportedstatistic>
+		
+		<supportedstatistic
+			class="com.datasynapse.fabric.stats.BasicStatisticsMetadata">
+			<property name="name" value="Storage Load" />
+			<property name="description" value="Total disk space used in bytes" />
+			<property name="shared" value="False" />
+			<property name="default" value="False" />
+			<property name="units" value="bytes" />
+			<aggregator
+				class="com.datasynapse.fabric.stats.aggregator.AverageAggregator">
+				<property name="inputStatisticName" value="Storage Load" />
+			</aggregator>
+		</supportedstatistic>
+		
+		<supportedstatistic
+			class="com.datasynapse.fabric.stats.BasicStatisticsMetadata">
+			<property name="name" value="Active Count" />
+			<property name="description" value="Active count of commit log tasks" />
+			<property name="shared" value="False" />
+			<property name="default" value="False" />
+			<property name="units" value="bytes" />
+			<aggregator
+				class="com.datasynapse.fabric.stats.aggregator.AverageAggregator">
+				<property name="inputStatisticName" value="ActiveCount" />
+			</aggregator>
+		</supportedstatistic>
+		
+		<supportedstatistic
+			class="com.datasynapse.fabric.stats.BasicStatisticsMetadata">
+			<property name="name" value="Pending Tasks" />
+			<property name="description" value="Pending commit log tasks" />
+			<property name="shared" value="False" />
+			<property name="default" value="False" />
+			<property name="units" value="bytes" />
+			<aggregator
+				class="com.datasynapse.fabric.stats.aggregator.AverageAggregator">
+				<property name="inputStatisticName" value="Pending Tasks" />
+			</aggregator>
+		</supportedstatistic>
+		
+		<supportedstatistic
+			class="com.datasynapse.fabric.stats.BasicStatisticsMetadata">
+			<property name="name" value="Completed Tasks" />
+			<property name="description" value="Completed commit log tasks" />
+			<property name="shared" value="False" />
+			<property name="default" value="False" />
+			<property name="units" value="bytes" />
+			<aggregator
+				class="com.datasynapse.fabric.stats.aggregator.AverageAggregator">
+				<property name="inputStatisticName" value="Completed Tasks" />
+			</aggregator>
+		</supportedstatistic>
+		
+		<supportedstatistic
+			class="com.datasynapse.fabric.stats.BasicStatisticsMetadata">
+			<property name="name" value="Bytes Total In Progress" />
+			<property name="description" value="Compaction bytes total in progress" />
+			<property name="shared" value="False" />
+			<property name="default" value="False" />
+			<property name="units" value="bytes" />
+			<aggregator
+				class="com.datasynapse.fabric.stats.aggregator.AverageAggregator">
+				<property name="inputStatisticName" value="Bytes Total In Progress" />
+			</aggregator>
+		</supportedstatistic>
+		
+		<supportedstatistic
+			class="com.datasynapse.fabric.stats.BasicStatisticsMetadata">
+			<property name="name" value="Bytes Compacted" />
+			<property name="description" value="Bytes compacted" />
+			<property name="shared" value="False" />
+			<property name="default" value="False" />
+			<property name="units" value="bytes" />
+			<aggregator
+				class="com.datasynapse.fabric.stats.aggregator.AverageAggregator">
+				<property name="inputStatisticName" value="Bytes Compacted" />
+			</aggregator>
+		</supportedstatistic>
+		
+	</statisticsprovider>
+    
+    <runtimecontexttemplate
+		class="com.datasynapse.fabric.common.DefaultRuntimeContext">
+		
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="${ENGINE_WORK_DIR}/cassandra" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="Environment" />
+			<property name="description" value="Cassandra Home" />
+			<property name="name" value="CASSANDRA_HOME" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="${CASSANDRA_HOME}/conf" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="Environment" />
+			<property name="description" value="Cassandra conf directory" />
+			<property name="name" value="CASSANDRA_CONF" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="j2sdk" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="" />
+			<property name="name" value="JDK_NAME" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="1.7.0" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="" />
+			<property name="name" value="JDK_VERSION" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="${GRIDLIB_JAVA_HOME}" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="Environment" />
+			<property name="description" value="" />
+			<property name="name" value="JAVA_HOME" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="-server" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="Environment" />
+			<property name="description" value="" />
+			<property name="name" value="JVM_OPTS" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="cluster1" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Name of the cluster." />
+			<property name="name" value="CLUSTER_NAME" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="org.apache.cassandra.dht.Murmur3Partitioner" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Partitioner" />
+			<property name="name" value="PARTITIONER" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="${CASSANDRA_HOME}/data" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Data file directories" />
+			<property name="name" value="DATA_FILE_DIRECTORIES" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="${CASSANDRA_HOME}/commitlog" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Commit log directory" />
+			<property name="name" value="COMMIT_LOG_DIRECTORY" />
+		</variable>
+		
+			<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="${CASSANDRA_HOME}/saved_caches" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Saved caches directory" />
+			<property name="name" value="SAVED_CACHES_DIRECTORY" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="${CASSANDRA_HOME}/log" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Commit log directory" />
+			<property name="name" value="CASSANDRA_LOG_DIRECTORY" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="SimpleSnitch" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Endpoint snitch: SimpleSnitch, Ec2Snitch, Ec2MultiRegionSnitch, PropertyFileSnitch, RackInferringSnitch" />
+			<property name="name" value="ENDPOINT_SNITCH" />
+		</variable>
+	
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="name" value="LOCK_WAIT" />
+			<property name="value" value="120000" />
+			<property name="type" value="String" />
+			<property name="description" value="Global lock wait timeout (ms)" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="name" value="LOCK_EXPIRE" />
+			<property name="value" value="300000" />
+			<property name="type" value="String" />
+			<property name="description" value="Global lock expire timeout (ms)" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="17000" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Storage port" />
+			<property name="name" value="STORAGE_PORT" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="17100" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="SSL Storage port" />
+			<property name="name" value="SSL_STORAGE_PORT" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Start Native transport" />
+			<property name="name" value="START_NATIVE_TRANSPORT" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="19042" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description" value="Native transport port" />
+			<property name="name" value="NATIVE_TRANSPORT_PORT" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="19160" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="String" />
+			<property name="description" value="Rpc port" />
+			<property name="name" value="RPC_PORT" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="9000" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="Environment" />
+			<property name="description" value="JMXport for JMX connection" />
+			<property name="name" value="RMI_REGISTRY_PORT" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="3000" />
+			<property name="autoIncrementType" value="Numeric" />
+			<property name="type" value="Environment" />
+			<property name="description" value="RMI port for JMX remote connection" />
+			<property name="name" value="RMI_CONNECTION_PORT" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="changeit" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Password for JMX access (if required)" />
+			<property name="name" value="JMX_PASSWORD" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="monitorRole" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Username for JMX access (if required)" />
+			<property name="name" value="JMX_USERNAME" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value"
+				value="service:jmx:rmi://${LISTEN_ADDRESS}:${RMI_CONNECTION_PORT}/jndi/rmi://${LISTEN_ADDRESS}:${RMI_REGISTRY_PORT}/jmxrmi" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX URL for statistics and monitoring" />
+			<property name="name" value="JMX_URL" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX SSL enabled" />
+			<property name="name" value="JMX_SSL_ENABLED" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="false" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX Two way SSL enabled" />
+			<property name="name" value="JMX_TWO_WAY_SSL_ENABLED" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="true" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX security enabled" />
+			<property name="name" value="JMX_SECURITY_ENABLED" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value"
+				value="${CASSANDRA_HOME}/management/management.properties" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="Environment" />
+			<property name="description" value="JMX config file" />
+			<property name="name" value="JMX_CONFIG_FILE" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value"
+				value="${CASSANDRA_HOME}/management/jmxssl.properties" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="Environment" />
+			<property name="description" value="JMX SSL config file" />
+			<property name="name" value="JMX_SSL_CONFIG_FILE" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value"
+				value="${CASSANDRA_HOME}/management/jmxssl.jks" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX ssl keystore file" />
+			<property name="name" value="JMX_SSL_KEYSTORE_FILE" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value"
+				value="${CASSANDRA_HOME}/management/jmxssl.jks" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX ssl trust store file" />
+			<property name="name" value="JMX_SSL_TRUSTSTORE_FILE" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="changeit" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX ssl keystore password" />
+			<property name="name" value="JMX_SSL_KEYSTORE_PASSWORD" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="changeit" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX ssl truststore password" />
+			<property name="name" value="JMX_SSL_TRUSTSTORE_PASSWORD" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value"
+				value="${CASSANDRA_HOME}/management/jmxremote.password" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="Environment" />
+			<property name="description" value="JMX remote password file" />
+			<property name="name" value="JMX_PASSWORD_FILE" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value"
+				value="${CASSANDRA_HOME}/management/jmxremote.access" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="JMX remote access file" />
+			<property name="name" value="JMX_ACCESS_FILE" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="name" value="MAX_RESTART" />
+			<property name="value" value="10" />
+			<property name="type" value="String" />
+			<property name="description" value="Maximum number of automatic restart retries" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="name" value="READ_CONFIG_WAIT" />
+			<property name="value" value="30" />
+			<property name="type" value="String" />
+			<property name="description" value="Read shared configuration wait timeout (s)" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="name" value="READ_CONFIG_MAX" />
+			<property name="value" value="5" />
+			<property name="type" value="String" />
+			<property name="description" value="Maximum read shared configuration attempts" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="name" value="STALE_CONFIG_WAIT" />
+			<property name="value" value="300" />
+			<property name="type" value="String" />
+			<property name="description" value="Clear stale configuration wait timeout (s)" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Shared NFS directory for seed config" />
+			<property name="name" value="SEED_CONFIG_DIR" />
+		</variable>
+		
+			<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="value" value="2" />
+			<property name="autoIncrementType" value="None" />
+			<property name="type" value="String" />
+			<property name="description" value="Minimum number of seed nodes required to start" />
+			<property name="name" value="MIN_SEED_NODES" />
+		</variable>
+		
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="name" value="RUNNING_POLL_PERIOD" />
+			<property name="value" value="60000" />
+			<property name="type" value="String" />
+			<property name="description" value="Running condition poll period (ms)" />
+		</variable>
+		
+		<variable class="com.datasynapse.fabric.common.RuntimeContextVariable">
+			<property name="name" value="START_POLL_PERIOD" />
+			<property name="value" value="10000" />
+			<property name="type" value="String" />
+			<property name="description" value="Start condition poll period (ms)" />
+		</variable>
+		
+		
+		
+	</runtimecontexttemplate>
+	
+	<supportedfeature class="com.datasynapse.fabric.container.Feature">
+		<property name="formTitle" value="Feature: Application Logging Support" />
+		<property name="description"
+			value="Support for handling of custom application logs" />
+		<property name="infoDescription"
+			value="Specify if application logs are archived to the Engine log directory for viewing/searching. &lt;i&gt;Note: The current application logs are still available for viewing/searching if this is not checked.&lt;/i&gt;" />
+		<property name="infoClass"
+			value="com.datasynapse.fabric.domain.featureinfo.ApplicationLoggingInfo" />
+		<property name="name" value="Application Logging Support" />
+	</supportedfeature>
+	
+</container>
