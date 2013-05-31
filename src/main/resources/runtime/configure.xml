@@ -42,7 +42,7 @@
 	<configFiles baseDir="bin" include="cassandra.bat">
 		<regex pattern='-Dcom\.sun\.management\.jmxremote\.port=[0-9]+' replacement='-Dcom.sun.management.jmxremote.port=${RMI_REGISTRY_PORT}' />
 		<regex pattern='-Dcom\.sun\.management\.jmxremote\.ssl=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.ssl=${JMX_SSL_ENABLED}' />
-		<regex pattern='-Dcom\.sun\.management\.jmxremote\.authenticate=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.authenticate=false' />
+		<regex pattern='-Dcom\.sun\.management\.jmxremote\.authenticate=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.authenticate=true' />
 	</configFiles>
 
 </containerConfig>

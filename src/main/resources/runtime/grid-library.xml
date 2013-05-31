@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grid-library>
   <grid-library-name>apache-cassandra-enabler</grid-library-name>
-  <grid-library-version>1.2.4.0</grid-library-version>
+  <grid-library-version>1.0</grid-library-version>
      <dependency>
        <grid-library-name>apache-cassandra-distribution</grid-library-name>
        <grid-library-version>1.2.4.0</grid-library-version>

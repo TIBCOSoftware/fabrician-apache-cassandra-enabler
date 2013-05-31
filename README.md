@@ -38,7 +38,7 @@ with a snippet from configure.xml
     <configFiles baseDir="${CASSANDRA_CONF}" include="cassandra-env.sh">
         <regex pattern='-Dcom\.sun\.management\.jmxremote\.port=\$JMX_PORT' replacement='-Dcom.sun.management.jmxremote.port=${RMI_REGISTRY_PORT}' />
         <regex pattern='-Dcom\.sun\.management\.jmxremote\.ssl=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.ssl=${JMX_SSL_ENABLED}' />
-        <regex pattern='-Dcom\.sun\.management\.jmxremote\.authenticate=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.authenticate=false' />
+        <regex pattern='-Dcom\.sun\.management\.jmxremote\.authenticate=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.authenticate=true' />
     </configFiles>
 ```
 These Runtime Context variables can be overridden when defining you Cassandra component.
