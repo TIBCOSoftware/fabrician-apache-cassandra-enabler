@@ -16,6 +16,10 @@ is used to integrate the Enabler, and the Distribution contains the scripts and 
 makeup Cassandra. Installation of the Apache Cassandra Enabler involves copying these Grid 
 Libraries to the SF_HOME/webapps/livecluster/deploy/resources/gridlib directory on the Silver Fabric Broker. 
 
+Note that in order to enable JMX over SSL you must set the runtime context variable JMX_SSL_ENABLED to true.
+You will then also need to have a keystore file jmxssl.ks packaged in your enabler along side the other
+jmx related files in src/main/resources/runtime/content/management.
+
 Testing the Deployment
 --------------------------------------
 * Start a Cassandra Component on Silver Fabric.  See the TIBCO Silver Fabric documentation for more information.
@@ -34,7 +38,7 @@ with a snippet from configure.xml
     <configFiles baseDir="${CASSANDRA_CONF}" include="cassandra-env.sh">
         <regex pattern='-Dcom\.sun\.management\.jmxremote\.port=\$JMX_PORT' replacement='-Dcom.sun.management.jmxremote.port=${RMI_REGISTRY_PORT}' />
         <regex pattern='-Dcom\.sun\.management\.jmxremote\.ssl=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.ssl=${JMX_SSL_ENABLED}' />
-        <regex pattern='-Dcom\.sun\.management\.jmxremote\.authenticate=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.authenticate=true' />
+        <regex pattern='-Dcom\.sun\.management\.jmxremote\.authenticate=[a-zA-Z]+' replacement='-Dcom.sun.management.jmxremote.authenticate=false' />
     </configFiles>
 ```
 These Runtime Context variables can be overridden when defining you Cassandra component.
