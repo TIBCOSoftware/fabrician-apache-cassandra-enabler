@@ -1,4 +1,6 @@
-[fabrician.org](http://fabrician.org/) - Apache Cassandra Enabler Guide
+[fabrician.org](http://fabrician.org/)
+==========================================================================
+Apache Cassandra Enabler Guide
 ==========================================================================
 
 Introduction
@@ -7,6 +9,11 @@ A Silver Fabric Enabler allows an external application or application platform, 
 application server to run in a TIBCO Silver Fabric software environment.  The Silver Fabric Apache 
 Cassandra Enabler supports configuration, runtime management, JMX health and performance 
 monitoring of an Apache Cassandra cluster.
+
+Supported Platforms
+--------------------------------------
+* Silver Fabric 5
+* Windows, Linux
 
 Installation
 --------------------------------------
